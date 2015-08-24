@@ -4,9 +4,11 @@ favicon = require 'serve-favicon'
 logger = require 'morgan'
 cookieParser = require 'cookie-parser'
 bodyParser = require 'body-parser'
+fs = require 'fs'
 
-routes = require './routes/index'
-users = require './routes/users'
+# routes = require './routes/index'
+# users = require './routes/users'
+
 
 app = express()
 
@@ -23,8 +25,42 @@ app.use bodyParser.urlencoded
 app.use cookieParser()
 app.use express.static path.join __dirname, 'public'
 
+# Load-Up pages with router
+dive_root_dir = './routes'
+dive = (dir, action)->
+  list = fs.readdirSync dir
+  list.forEach (file)->
+    path = dir + "/" + file
+    stat = fs.statSync path
+    console.log stat
+    if (stat and stat.isDirectory())
+      dive path, action
+    else
+      # Call the action
+      # action(null, path);
+      kk = path.split('.')
+      if (kk.length>2)
+        kk2 = kk[1].split('/')
+        req_name = "."+kk[1]
+        route_name = req_name.slice dive_root_dir.length
+        res = require req_name
+        app.use route_name, res
+        console.log kk2, req_name, route_name
+
+      console.log path,kk.length,kk
+
+dive dive_root_dir
+
+# root route
+routes = require './routes/index'
 app.use '/', routes
-app.use '/users', users
+
+# users = require './routes/users'
+# app.use '/users', users
+
+if typeof asdf==undefined
+  console.log "asdf Undefined!"
+
 
 # catch 404 and forward to error handler
 app.use (req, res, next) ->
