@@ -1,0 +1,1 @@
+(function(){var l;l=100,console.log("Client KATANA"),console.log("Client KATANA 2"),l+=2}).call(this);
