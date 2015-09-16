@@ -1,0 +1,49 @@
+rock_manifest = {
+   bin = {
+      moon = "b9d71e581c3a17d17531c88fc8726685",
+      moonc = "538db4ae930586697b5690345280009c"
+   },
+   doc = {
+      ["CHANGELOG.md"] = "5093f53e15cc1e968989b6184001a4a5",
+      ["README.md"] = "1a143f9be9a9e3023082b13bf16b92fa"
+   },
+   lua = {
+      moon = {
+         ["all.lua"] = "515a4a46175ca2d388446590da39d372",
+         ["init.lua"] = "527a3c295f9e0d800a83f8fb7445600c"
+      },
+      moonscript = {
+         ["base.lua"] = "4f849bcac098b07c46f7e9d227bfd06d",
+         cmd = {
+            ["coverage.lua"] = "3702cd50babff9be5dcab8bee790bcb0",
+            ["lint.lua"] = "209fb31d7c58c2d5dc0206632a3a37a2",
+            ["moonc.lua"] = "a12083489b5b8ccf67ff2638cf59c179"
+         },
+         compile = {
+            ["statement.lua"] = "def5f262efbf38e8af2a1f8ea4c4690a",
+            ["value.lua"] = "823cceff42e01773dbb4dc3dfb144dc6"
+         },
+         ["compile.lua"] = "074b113db41885c23fbbf4de6e9f8bbb",
+         ["data.lua"] = "db087f987257af096c925e93cdcd5c32",
+         ["dump.lua"] = "406541283281306267f76c293dec57a8",
+         ["errors.lua"] = "6258128af0eeaddbf129909d7ff0e8f1",
+         ["init.lua"] = "0a25d3424694b97b2e8f21bcb83aa5bd",
+         ["line_tables.lua"] = "2f63db8a7f01d8d70104b8d8a35d8880",
+         parse = {
+            ["env.lua"] = "1428cacb4ea44b1d1480b75b120b4c59",
+            ["literals.lua"] = "0165bb97e0398376a112a5f6a261e5ee",
+            ["util.lua"] = "e01304c33df0c7218a7d5ec4fbdd7828"
+         },
+         ["parse.lua"] = "8fa23d6c43eb149e223ccd8b0a5a4025",
+         transform = {
+            ["destructure.lua"] = "455bffaef11cdb0584bae08310625c13",
+            ["names.lua"] = "646cadc59961de5c4c6b42c9e49c8ce3"
+         },
+         ["transform.lua"] = "576c5f8995cb92dc30ff29422d16f475",
+         ["types.lua"] = "acf5054b46b5d1ffc2fe82421778083d",
+         ["util.lua"] = "13a3772870b6963e7da0b2ed0b47d80a",
+         ["version.lua"] = "56b796d3b369043775ea911d2f0522ec"
+      }
+   },
+   ["moonscript-0.3.2-1.rockspec"] = "29272aa882dd69deae9704105858dff8"
+}
