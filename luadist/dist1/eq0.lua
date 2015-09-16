@@ -1,16 +1,19 @@
 --  base0.lua
 local cl = io.popen"cd":read'*l'
 
+sf = string.format
 local function write_format(...)
-  io.write(string.format(...))
+  io.write(sf(...))
 end
 local function write_format_flush(...)
-  io.write(string.format(...))
+  io.write(sf(...))
   io.flush()
 end
-wf = write_format
-wff = write_format_flush
-sf = string.format
+wsf = write_format
+wsff = write_format_flush
+psf = function (...)
+  print(sf(...))
+end
 
 
 SCRDIR = sf("%s\\scr0",cl)
