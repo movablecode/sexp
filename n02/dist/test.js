@@ -26,4 +26,19 @@ describe('기본 es6 - 자바스크립트', function () {
     x *= 2;
     x.should.equal(50);
   });
+  it('두번째: 객체 참조형', function () {
+    var x = { k1: 'KATANA', k2: 10 };
+    var x2 = x;
+    x2.k1 = 'BASE';
+    x2.k1.should.equal('BASE');
+    x.k1.should.equal(x2.k1);
+    var f1 = function f1(x) {
+      x.k1 = 'SWORD';
+      return x;
+    };
+    f1(x2);
+    x.k1.should.equal('SWORD');
+    x2.k1.should.equal(x.k1);
+    //  모든 js 객체는 참조형으로 작동한다.
+  });
 });
