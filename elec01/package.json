@@ -1,0 +1,11 @@
+{
+  "name": "el_sample_01",
+  "version": "0.0.1",
+  "description": "Electron Sample First 01",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Lee Sangmin",
+  "license": "MIT"
+}
