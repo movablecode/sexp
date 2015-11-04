@@ -60,7 +60,7 @@ local fn = {
   --  unit test
   test_unit = function ()
     -- require "busted.runner"()
-    require 'busted.runner'({ batch = true })
+    require 'busted.runner'({ standalone = false, batch = true })
   end,
 }
 if (#arg>0) then
