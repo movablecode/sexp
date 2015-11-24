@@ -25,6 +25,8 @@ app.use bodyParser.urlencoded
 app.use cookieParser()
 app.use express.static path.join __dirname, 'public'
 
+print = console.log
+
 # Load-Up pages with router
 dive_root_dir = './routes'
 dive = (dir, action)->
@@ -32,7 +34,7 @@ dive = (dir, action)->
   list.forEach (file)->
     path = dir + "/" + file
     stat = fs.statSync path
-    console.log stat
+    # print stat
     if (stat and stat.isDirectory())
       dive path, action
     else
@@ -45,9 +47,9 @@ dive = (dir, action)->
         route_name = req_name.slice dive_root_dir.length
         res = require req_name
         app.use route_name, res
-        console.log kk2, req_name, route_name
+        # print kk2, req_name, route_name
 
-      console.log path,kk.length,kk
+      print path,kk.length,kk
 
 dive dive_root_dir
 
@@ -59,7 +61,7 @@ app.use '/', routes
 # app.use '/users', users
 
 if typeof asdf==undefined
-  console.log "asdf Undefined!"
+  print "asdf Undefined!"
 
 
 # catch 404 and forward to error handler
