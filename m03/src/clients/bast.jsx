@@ -1,0 +1,1 @@
+let println = console.log;
