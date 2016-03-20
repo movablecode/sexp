@@ -11,10 +11,12 @@ var src_clib = 'src/clib/*.jsx';
 var src_common = 'src/common/*.jsx';
 var src_test = 'src/test/*.jsx';
 
+var babel_opt = {presets:['es2015']};
+
 //	공통 라이브러리 컴파일, 빌드.
 gulp.task('build_common', function () {
   return gulp.src(src_common)
-    .pipe(babel())
+    .pipe(babel(babel_opt))
     // .pipe(uglify({mangle: {toplevel: true}}))
     .pipe(uglify({mangle:true}))
     .pipe(concat('ccset.js'))
@@ -24,7 +26,7 @@ gulp.task('build_common', function () {
 //	테스트 컴파일, 빌드.
 gulp.task('test_compile', function () {
   return gulp.src(src_test)
-    .pipe(babel())
+    .pipe(babel(babel_opt))
     .pipe(concat('test.js'))
     .pipe(gulp.dest('dist'));
 });
