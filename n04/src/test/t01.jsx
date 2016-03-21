@@ -6,6 +6,9 @@ let expect = chai.expect;
 let should = chai.should;
 should();
 
+import lib02 from '../src/test/lib02';
+import l01 from '../lib/l01';
+
 /*
   es6 의 기본 테스트
 */
@@ -35,4 +38,12 @@ describe('기본 es6 - 자바스크립트', ()=>{
     //  모든 js 객체는 참조형으로 작동한다.
 
   });
+  it ('테스트 03: 라이브러리 require', ()=>{
+    let x = lib02.supercase(100);
+    x.should.equal(200);
+    lib02.supercase(200).should.equal(300);
+    l01.supercase(200).should.equal(201);
+  });
+
+
 });
