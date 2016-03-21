@@ -1,7 +1,7 @@
 {
   "name": "n04",
-  "version": "1.0.0",
-  "description": "Test Env ES6",
+  "version": "0.1.0",
+  "description": "테스트 환경, ES6, Modules, React, Materialize",
   "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
