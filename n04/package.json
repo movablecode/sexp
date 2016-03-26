@@ -6,6 +6,8 @@
   "main": "gulpfile.js",
   "scripts": {
     "start": "node ./bin/www",
+    "daemon": "nohup node ./bin/www > /dev/null 2>&1 &",
+    "stop": "pkill --signal SIGINT Rise04",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

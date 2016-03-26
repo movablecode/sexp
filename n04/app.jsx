@@ -1,5 +1,7 @@
 'use strict';
 
+process.title = Rise04;
+
 /**
  * Module dependencies.
  */
