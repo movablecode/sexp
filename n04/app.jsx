@@ -11,8 +11,6 @@ import logger       from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser   from 'body-parser';
 
-import routes       from './routes/main';
-import users        from './routes/users';
 let app = express();
 
 // view engine setup
@@ -28,8 +26,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.use('/', routes);
+import main         from './routes/main';
+import users        from './routes/users';
+app.use('/', main);
 app.use('/users', users);
+
 
 // catch 404 and forward to error handler
 app.use((req, res, next)=>{
