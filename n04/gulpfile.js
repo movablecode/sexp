@@ -76,6 +76,8 @@ gulp.task('test', ['test_compile'], function () {
 gulp.task('watch', function () {
   gulp.watch(src_common,['build_common'])
   gulp.watch(src_common,['build_client'])
+  gulp.watch(src_root,['build_app_root'])
+  gulp.watch(src_routes,['build_routes'])
   gulp.watch(src_test,['test'])
 });
 

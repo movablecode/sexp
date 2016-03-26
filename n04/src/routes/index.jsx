@@ -1,8 +1,8 @@
+import express      from 'express';
+let router = express.Router();
 
-/*
- * GET home page.
- */
-
-exports.index = function(req, res){
+router.get('/',(req, res, next)=>{
   res.render('index', { title: 'Express' })
-};
+});
+
+module.exports = router;
