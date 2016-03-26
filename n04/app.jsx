@@ -3,14 +3,24 @@
  * Module dependencies.
  */
 
-var express = require('express')
-  , routes = require('./routes');
+import express      from 'express';
+import path         from 'path';
+import favicon      from 'serve-favicon';
+import logger       from 'morgan';
+import cookieParser from 'cookie-parser';
+import bodyParser   from 'body-parser';
 
-var app = module.exports = express.createServer();
+import routes       from './routes/index';
+// import users        from './routes/users';
+
+// var express = require('express')
+//   , routes = require('./routes');
+
+let app = module.exports = express.createServer();
 
 // Configuration
 
-app.configure(function(){
+app.configure( ()=>{
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
   app.use(express.bodyParser());
@@ -19,11 +29,11 @@ app.configure(function(){
   app.use(express.static(__dirname + '/public'));
 });
 
-app.configure('development', function(){
+app.configure('development', ()=>{
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
-app.configure('production', function(){
+app.configure('production', ()=>{
   app.use(express.errorHandler());
 });
 
@@ -31,6 +41,6 @@ app.configure('production', function(){
 
 app.get('/', routes.index);
 
-app.listen(3000, function(){
+app.listen(3002, ()=>{
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });

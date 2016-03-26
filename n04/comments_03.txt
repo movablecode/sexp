@@ -1,0 +1,30 @@
+--  comments_03.txt
+
+express 사용
+gulp 와 babel, brunch 사용.
+
+package.json 내용
+
+  App 서버 => express
+  빌드 자동화 => gulp
+  es2015 => babel
+  클라이언트 빌드 => brunch
+
+
+서버 구조 (express, es2015)
+
+  ./app.jsx           =>  ./app.js
+  ./src/routes/*.jsx  =>  ./routes/*.js
+  ./views/*.jade      =>  as VIEW
+
+
+클라이언트 구조
+
+  ./app/*.jsx           =>  ./public/app.js
+                        =>  ./public/vendor.js
+  ./app/components      =>  UI 컴포넌트들
+
+
+HTTP
+
+  nginx (open-resty, lapis)

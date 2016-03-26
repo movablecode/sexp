@@ -10,6 +10,8 @@ var src_slib = 'src/slib/*.jsx';
 var src_clib = 'src/clib/*.jsx';
 var src_common = 'src/common/*.jsx';
 var src_test = 'src/test/*.jsx';
+var src_routes = 'src/routes/*.jsx';
+var src_root = 'app.jsx';
 
 //  바벨 6 를 위한 옵션
 var babel_opt = {presets:['es2015']};
@@ -28,6 +30,23 @@ gulp.task('build_common', function () {
     // .pipe(gulp.dest('dist'));
     .pipe(gulp.dest('lib'));
 });
+
+gulp.task('build_app_root', function () {
+  return gulp.src(src_root)
+    .pipe(babel(babel_opt))
+    .pipe(gulp.dest('./'));
+});
+
+gulp.task('build_routes', function () {
+  return gulp.src(src_routes)
+    .pipe(babel(babel_opt))
+    // .pipe(uglify({mangle: {toplevel: true}}))
+    // .pipe(uglify({mangle:true}))
+    // .pipe(concat('ccset.js'))
+    // .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('routes'));
+});
+
 
 gulp.task('build_client', function () {
   return gulp.src(src_clib)
@@ -60,4 +79,4 @@ gulp.task('watch', function () {
   gulp.watch(src_test,['test'])
 });
 
-gulp.task('default', ['build_common','build_client','test_compile','test','watch']);
+gulp.task('default', ['build_common','build_routes','build_app_root','build_client','test_compile','test','watch']);
