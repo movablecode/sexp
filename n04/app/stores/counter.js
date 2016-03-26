@@ -1,4 +1,4 @@
-import React from 'React';
+import React from 'react';
 import Exim from 'exim';
 
 export default Exim.createStore({
