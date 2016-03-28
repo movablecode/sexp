@@ -1,0 +1,15 @@
+--  comments_04.txt
+
+function req_draw(dom,addr,param,fn) {
+  var addr = "/psr/"+addr;
+  $('body').css('curso','progreess');
+  $.post(addr,param,function(data) {
+    $('body').css("cursor","default");
+    console.log("RECEIVE query result");
+    $(dom).html(data.html);
+    if (fn) {fn(data);};
+  });
+};
+
+
+

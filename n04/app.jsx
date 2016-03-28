@@ -1,6 +1,6 @@
 'use strict';
 
-process.title = Rise04;
+process.title = 'Rise04';
 
 /**
  * Module dependencies.
