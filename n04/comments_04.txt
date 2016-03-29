@@ -12,4 +12,56 @@ function req_draw(dom,addr,param,fn) {
 };
 
 
+--  app.moon
+
+_G[""] 항목에 관련 내용들을 모두 저장
+
+import remote_query from require "lib.lib2"
+
+class app extends lapis.Application
+  layout: require "views.def_layout"
+  "/": =>
+    renfer: "index"
+
+g_app = app
+
+GET = (path,fn) -> g_app\get path,fn
+POST = (path,fn) -> g_app\post path,fn
+MATCH = (path,fn) -> g_app\match path,fn
+
+
+GET "/m9/:xx", =>
+  @html ->
+    x = (tonumber @params.num) or 0
+    h1 tostring (x+7)
+    p "Sanatal"
+
+GET "/m9/:xx", =>
+  z2 = json.encode(@params)
+  {json:{html:"KAZ Apples",input:z2}}
+
+GET "m9/:xx", =>
+  render: "about"     --  about.moon  (widgets)
+
+--  load pages
+lfs = require "lfs"
+load_pages = (fpath,subpath) ->
+  skip=0
+  fpath = fpath.."/"..subpath
+  subpath2,fn = subpath.."."
+  for fn in lfs.dir(fpath) do
+    f1 = fn\sub 1,1
+    if ((fn==".") or (fn=="..") or (f1=="."))
+      skip += 1
+    else
+      fname = fpath.."/"..fn
+      attr = lfs.attributes fname
+      mode = attr.mode
+      if (fn\sub(-4)==".lua")
+        va = fn\sub(1,(#fn-4))
+        require(subpath2..va)
+
+load_pages www_path,"pages"     --  load from './pages'
+
+return g_app
 
