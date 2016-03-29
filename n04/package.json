@@ -31,6 +31,7 @@
     "gulp-concat": "^2.6.0",
     "gulp-mocha": "^2.2.0",
     "gulp-uglify": "^1.5.3",
+    "imba": "^0.14.5",
     "jade": "^1.11.0",
     "javascript-brunch": "^2.0.0",
     "mocha": "^2.4.5",
@@ -39,6 +40,7 @@
     "react-dom": "^0.14.7",
     "requirejs": "^2.2.0",
     "serve-favicon": "^2.3.0",
+    "systemjs": "^0.19.24",
     "uglify-js-brunch": "^2.0.1",
     "ws": "^1.0.1"
   }
