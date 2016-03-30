@@ -8,7 +8,9 @@
     "start": "node ./bin/www",
     "daemon": "nohup node ./bin/www > /dev/null 2>&1 &",
     "stop": "pkill --signal SIGINT Rise04",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "devf": "nodemon --watch routes/ ./bin/www",
+    "dev": "nohup nodemon --watch routes/ ./bin/www > /dev/null 2>&1 &"
   },
   "author": "",
   "license": "MIT",

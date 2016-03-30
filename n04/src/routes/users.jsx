@@ -3,7 +3,7 @@ import fs           from 'fs';
 let router = express.Router();
 
 router.get('/',(req, res, next)=>{
-  res.render('users', { title: 'Express' })
+  res.render('users', { title: 'YES', files:['case'] })
 });
 
 router.get('/xxx',(req, res, next)=>{
