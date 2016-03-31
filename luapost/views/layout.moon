@@ -13,6 +13,9 @@ class DefaultLayout extends html.Widget
         script ->
           raw [[
             require('initialize');
+            var RD = require('react-dom');
+            var R = require('react');
+
           ]]
       body ->
         @content_for "inner"

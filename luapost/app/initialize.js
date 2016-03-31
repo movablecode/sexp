@@ -12,10 +12,6 @@ System.import('test02.js');
 
 console.log('what ?');
 
-
-let RD = ReactDOM;
-
-
 // let rfQry = (dom,addr,param,fn) => {
 // // function rfQry(dom,addr,param,fn) {
 //   var addr = "/psr/"+addr;
