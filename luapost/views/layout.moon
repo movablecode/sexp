@@ -6,7 +6,11 @@ class DefaultLayout extends html.Widget
       head ->
         meta charset:"UTF-8"
         title @title or "Lapis Page 2"
-        -- script type:"text/javascript",src:"/s/test02.js"
+        --  material design lite
+        link rel:"stylesheet",href:"/s/app.css"
+        script src:"/s/material.min.js"
+        link rel:"stylesheet",href:"https://fonts.googleapis.com/icon?family=Material+Icons"
+        --  scripts
         script type:"text/javascript",src:"/s/system.js"
         script type:"text/javascript",src:"/s/vendor.js"
         script type:"text/javascript",src:"/s/app.js"
