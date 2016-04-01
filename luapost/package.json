@@ -5,6 +5,8 @@
   "main": "main.js",
   "scripts": {
     "start": "sudo lapis server",
+    "make_cli": "brunch build --production",
+    "make_cli_debug": "brunch build",
     "daemon": "sudo nohup lapis server > /dev/null 2>&1 &",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -5,7 +5,7 @@ class DefaultLayout extends html.Widget
     html_5 lang:"ko", ->
       head ->
         meta charset:"UTF-8"
-        title @title or "Lapis Page 2"
+        title @title or "루아 포스트 Lua Post"
         --  material design lite
         link rel:"stylesheet",href:"/s/app.css"
         script src:"/s/material.min.js"
