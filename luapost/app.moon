@@ -1,4 +1,6 @@
 lapis = require "lapis"
+require "lib.lib0"
+import load_pages from require "lib.lib1"
 
 --
 --  web app 초기 진입 (대문)
@@ -14,25 +16,7 @@ _G["GET"] = GET
 _G["POST"] = POST
 _G["MATCH"] = MATCH
 _G["ROOTDIR"] = ROOTDIR
-
-
---  load views
-lfs = require "lfs"
-load_pages = (fpath,subpath) ->
-  skip=0
-  fpath = fpath.."/"..subpath
-  subpath2,fn = subpath.."."
-  for fn in lfs.dir(fpath) do
-    f1 = fn\sub 1,1
-    if ((fn==".") or (fn=="..") or (f1=="."))
-      skip += 1
-    else
-      fname = fpath.."/"..fn
-      attr = lfs.attributes fname
-      mode = attr.mode
-      if (fn\sub(-4)==".lua")
-        va = fn\sub(1,(#fn-4))
-        require(subpath2..va)
+_G["sf"] = string.format
 
 load_pages ROOTDIR,"views"     --  load from './views'
 
