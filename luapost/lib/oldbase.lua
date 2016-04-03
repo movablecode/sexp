@@ -1,4 +1,6 @@
 
+sf = string.format
+
 --  convert number to megabytes
 function MB(v)
   local value = tonumber(v)
@@ -343,4 +345,25 @@ function prepare_moonscript()
       end
     end
   end
+end
+
+--
+--  deep-copy object
+--
+function clone_from(orig)
+  local orig_type = type(orig)
+  local copy
+  if orig_type == 'table' then
+    copy = {}
+    for orig_key, orig_value in next, orig, nil do
+      copy[clone_from(orig_key)] = clone_from(orig_value)
+    end
+    setmetatable(copy, clone_from(getmetatable(orig)))
+  else -- number, string, boolean, etc
+    copy = orig
+  end
+  return copy
+end
+
+function u_make_array_string()
 end

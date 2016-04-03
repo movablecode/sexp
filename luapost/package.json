@@ -8,6 +8,10 @@
     "make_cli": "brunch build --production",
     "make_cli_debug": "brunch build",
     "daemon": "sudo nohup lapis server > /dev/null 2>&1 &",
+    "tarantool": "nohup tarantool tnt.lua > /dev/null 2>&1 &",
+    "compile": "moonc *.moon lib views models",
+    "build": "moonc *.moon lib views models",
+    "watch": "moonc -w *.moon lib views models",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Lee Sangmin",

@@ -40,6 +40,7 @@ config { "production", "staging" }, ->
   session_name sessions_key
   secret secret_key
   admin_email "movablecode@gmail.com"
+  -- enable_https true
 
 --  staging
 config "staging", ->
