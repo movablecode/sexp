@@ -21,6 +21,13 @@ with scUser
     { 5, "create_at", "NUM", "생성시각"}
     { 6, "update_at", "NUM", "갱신시각"}
   }
+  \setOption {
+    persistence: "sophia"
+    indexes: {
+      { "pk", {"id"} }
+      { "pk_email", {"email"} }
+    }
+  }
   \build!
 
 
@@ -32,6 +39,12 @@ with scRate
     { 3, "rate_down", "NUM", "비추천 횟수"}
     { 4, "rate",      "NUM", "추천 점수 (추천-비추천)"}
     { 5, "update_at", "NUM", "갱신시각"}
+  }
+  \setOption {
+    persistence: "sophia"
+    indexes: {
+      { "pk", {"id"} }
+    }
   }
   \build!
 
@@ -57,6 +70,13 @@ with scArticle
     { 6, "rate_id",   "NUM", "Rate ID"}
     { 7, "create_at", "NUM", "생성시각"}
     { 8, "update_at", "NUM", "갱신시각"}
+  }
+  \setOption {
+    persistence: "sophia"
+    indexes: {
+      { "pk", {"id"} }
+      { "pk_group", {"group","id"} }
+    }
   }
   \build!
 

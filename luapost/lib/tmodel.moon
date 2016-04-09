@@ -14,6 +14,7 @@ new_col = (idx,name,ctype,desc)->
     :desc
   }
 
+
 --
 --
 --  Persistence engine for Schema
@@ -21,6 +22,44 @@ new_col = (idx,name,ctype,desc)->
 --
 class TPersistence
   persistences: {}
+
+  new: (name) =>
+    @name = name or @name
+    @@persistences[@name] = self
+
+  build: (o) => {}
+
+  writeChanges: (schema,model)=>
+    print "write changes..."
+
+
+--  persistence: tarantool
+class TPersistenceTarantool extends TPersistence
+
+--  persistence: tarantool - memtx
+class TPersistenceTarantoolMemtx extends TPersistenceTarantool
+  @name = 'memtx'
+
+  build: (o) => {}
+
+  writeChanges: (schema,model)=>
+    print "write changes in tarantool.memtx !"
+
+TPersistenceTarantoolMemtx!
+
+
+--  persistence: tarantool - sophia
+class TPersistenceTarantoolSophia extends TPersistenceTarantool
+  @name = 'sophia'
+
+  build: (o) =>
+    print "build tarantool.sophia"
+
+  writeChanges: (schema,model)=>
+    print "write changes in tarantool.sophia !"
+
+TPersistenceTarantoolSophia!
+
 
 
 --
@@ -42,6 +81,8 @@ class TSchema
     @option = nil
     @validate_hash = 0            --  schema validate hash
     @@schemas[@name] = self
+    @indexes = {}                 --  index map
+    @persistence
 
   --  properties
   getName: ()=>
@@ -65,6 +106,10 @@ class TSchema
     for k,v in pairs(va)
       @set_col v
     #@columns
+
+  setOption: (o)=>
+    o.persistence = o.persistence or 'tarantool'
+    o.indexes = o.indexes or {}
 
   getColumn: (idx)=>
     @columns[idx]
@@ -91,6 +136,11 @@ class TSchema
   --  make JSON object and hashing it's value
   toJSON: ()=>
     @columns
+
+  writeChanges: (model)=>
+    if @persistence
+      @persistence\writeChanges self, model
+
 
   --  statics
   clone: (tname)->
@@ -122,6 +172,7 @@ class TModel
     --     return @__index0 t,k,v
     --   else
     --     return r
+    @modified = {}
 
   getSchema: ()=> @schema
 
@@ -129,7 +180,7 @@ class TModel
     scname = scname or @__class.__name
     @schema_name = scname
     @schema = TSchema.schemas[@schema_name]
-    print "called setSchema: ",@schema_name,tostring(@schema)
+    -- print "called setSchema: ",@schema_name,tostring(@schema)
     -- @table_name = @schema.table_name
 
   getSchemaName: ()=> @schema_name
@@ -143,6 +194,13 @@ class TModel
       @schema_name
 
   getEntry: ()=> @entry
+
+  getModified: ()=> @modified
+
+  loadFrom: ()=>
+    -- if @schema
+    --   (@schema.getPersistence!)\loadFrom
+
 
   get: (key)=>
     if type(key)=="number"
@@ -158,14 +216,26 @@ class TModel
 
   set: (key,value)=>
     if type(key)=="number"
-      @data[key] = value
+      @setData(key,value)
     elseif type(key)=="string"
       idx = @schema\getColumnIndexByName(key)
       if idx
-        @data[idx] = value
+        @setData(idx,value)
       else
         return nil
     return nil
+
+  --  raw set method with numeric/integer key
+  setData: (ikey,value)=>
+    @data[ikey] = value
+    @modified[ikey] = value
+
+  flush: ()=>
+    --  do modified to persistence
+    if @schema
+      @schema\writeChanges self
+    @modified = {}
+
 
   --  static
 
