@@ -9,6 +9,8 @@ class DefaultLayout extends html.Widget
         meta name:"description",content:"Introducing Lollipop, a sweet new take on Android."
         meta name:"viewport",content:"width=device-width, initial-scale=1.0, minimum-scale=1.0"
         title @title or "제보 온라인"
+        --  favicon
+        link rel:"shortcut icon",href:"/favicon.ico"
         --  material design lite
         link rel:"stylesheet",href:"https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=ko"
         link rel:"stylesheet",href:"https://fonts.googleapis.com/icon?family=Material+Icons"
