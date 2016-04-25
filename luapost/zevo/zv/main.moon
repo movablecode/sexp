@@ -3,6 +3,7 @@ html = require "lapis.html"
 
 --  기본 routing rules
 class extends lapis.Application
+  views_prefix: "zv"
   layout: require "zv.layout"
 
   "/": =>
@@ -13,8 +14,8 @@ class extends lapis.Application
       button class:"mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent", "버튼"
 
   --  for TEST
-  "/xxx": => render: "xxx"
-  "/x1/:act": => render: "xxx"
+  "/tt1": => render: "tt1"
+  "/tt1/:act": => render: "tt1"
   "/x2/*": =>
     @html ->
       splat = @params.splat

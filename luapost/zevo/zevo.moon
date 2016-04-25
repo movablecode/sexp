@@ -18,6 +18,6 @@ _G["POST"] = POST
 _G["MATCH"] = MATCH
 _G["ROOTDIR"] = ROOTDIR
 
-load_pages ROOTDIR,"zv"     --  load from './zevo/zv'
+-- load_pages ROOTDIR,"zv"     --  load from './zevo/zv'
 
 return g_app
