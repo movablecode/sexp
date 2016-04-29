@@ -31,8 +31,13 @@ with scUser
   \build!
 
 
-scRate = TSchema.new "Rate","rate"
-with scRate
+--  article, comment 는 모두 같은 ID 넘버링을 따른다.
+--  rating 은 그래서 id 만으로도 추적이 된다.
+--  이것을 ratable ID 라고 하자.
+--  ratable ID 가 쓰이는 곳은 글과 댓글이며, 이들은 모두 같은 ID 채번을 공유한다.
+
+scRatable = TSchema.new "Ratable","ratable"
+with scRatable
   \define {
     { 1, "id",        "NUM", "Rate ID"}
     { 2, "rate_up",   "NUM", "추천 횟수"}
@@ -58,7 +63,6 @@ with scRateAction
   }
   \build!
 
-
 scArticle = TSchema.new "Article","article"
 with scArticle
   \define {
@@ -67,9 +71,12 @@ with scArticle
     { 3, "title",     "STR", "제목"}
     { 4, "content",   "STR", "본문"}
     { 5, "password",  "STR", "암호"}
-    { 6, "rate_id",   "NUM", "Rate ID"}
-    { 7, "create_at", "NUM", "생성시각"}
-    { 8, "update_at", "NUM", "갱신시각"}
+    { 6, "create_at", "NUM", "생성시각"}
+    { 7, "update_at", "NUM", "갱신시각"}
+    { 8, "rate_up",   "NUM", "추천 횟수"}
+    { 9, "rate_down", "NUM", "비추천 횟수"}
+    {10, "rate",      "NUM", "추천 점수 (추천-비추천)"}
+    {11, "rate_at",   "NUM", "평가 시각"}
   }
   \setOption {
     persistence: "sophia"
@@ -84,10 +91,20 @@ scComment = TSchema.new "Comment","comment"
 with scComment
   \define {
     { 1, "id",        "NUM", "댓글 ID"}
-    { 2, "group",     "STR", "게시 그룹"}
+    { 2, "aid",       "NUM", "article ID"}
     { 3, "content",   "STR", "본문"}
-    { 4, "rate_id",   "NUM", "Rate ID"}
-    { 5, "update_at", "NUM", "갱신시각"}
+    { 4, "update_at", "NUM", "갱신시각"}
+    { 5, "rate_up",   "NUM", "추천 횟수"}
+    { 6, "rate_down", "NUM", "비추천 횟수"}
+    { 7, "rate",      "NUM", "추천 점수 (추천-비추천)"}
+    { 8, "rate_at",   "NUM", "평가 시각"}
+  }
+  \setOption {
+    persistence: "sophia"
+    indexes: {
+      { "pk", {"id"} }
+      { "pk_aid", {"aid","id"} }
+    }
   }
   \build!
 
@@ -95,7 +112,7 @@ with scComment
 
 return {
   :scUser
-  :scRate
+  :scRatable
   :scRateAction
   :scArticle
   :scComment
