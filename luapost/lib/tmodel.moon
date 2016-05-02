@@ -45,7 +45,7 @@ class TPersistenceTarantoolMemtx extends TPersistenceTarantool
   writeChanges: (schema,model)=>
     print "write changes in tarantool.memtx !"
 
-TPersistenceTarantoolMemtx!
+TPersistenceTarantoolMemtx('memtx')
 
 
 --  persistence: tarantool - sophia
@@ -58,7 +58,7 @@ class TPersistenceTarantoolSophia extends TPersistenceTarantool
   writeChanges: (schema,model)=>
     print "write changes in tarantool.sophia !"
 
-TPersistenceTarantoolSophia!
+TPersistenceTarantoolSophia('sophia')
 
 
 
@@ -241,6 +241,7 @@ class TModel
 
 
 return {
+  :TPersistence
   :TSchema
   :TModel
 }

@@ -20,7 +20,7 @@ load_pages = (fpath,subpath) ->
         require(subpath2..va)
       elseif (ext=="moon")
         va = fn\sub(1,(#fn-5))
-        require(subpath2..va)
+        -- require(subpath2..va)
 
 return {
   :load_pages

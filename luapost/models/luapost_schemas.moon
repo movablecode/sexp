@@ -11,6 +11,8 @@ import TSchema,TModel from require 'lib.tmodel'
 --  스키마:      siteUser
 --  테이블:      site_user
 --
+--  sophia 테이블은 인덱스를 하나만 지원한다.
+--
 scUser = TSchema.new "SiteUser","site_user"
 with scUser
   \define {
@@ -20,15 +22,61 @@ with scUser
     { 4, "password",  "STR", "암호"}
     { 5, "create_at", "NUM", "생성시각"}
     { 6, "update_at", "NUM", "갱신시각"}
+    { 7, "facebook",  "STR", "facebook ID"}
+    { 8, "twitter",   "STR", "twitter ID"}
+    { 9, "google",    "STR", "google plus ID"}
   }
   \setOption {
     persistence: "sophia"
     indexes: {
       { "pk", {"id"} }
-      { "pk_email", {"email"} }
+      -- { "pk_email", {"email"} }
     }
   }
   \build!
+
+additional_user_index = {}
+
+make_user_index = (postfix,desc) ->
+  lpostfix = postfix\lower!
+  idx_var = "scUser"..postfix
+  idx_name = "SiteUser"..postfix
+  idx_table = "site_user_"..lpostfix
+  idx_obj = TSchema.new idx_name,idx_table
+  with idx_obj
+    \define {
+      { 1, lpostfix,    "STR", desc}
+      { 2, "id",        "NUM", "사용자 ID"}
+    }
+    \setOption {
+      persistence: "sophia"
+      indexes: {
+        { "pk", {lpostfix} }
+      }
+    }
+    \build!
+  additional_user_index[idx_var] = idx_obj
+
+make_user_index "email","이메일"
+make_user_index "facebook","페이스북"
+make_user_index "twitter","트위터"
+make_user_index "google","구글플러스"
+
+
+-- scUserEmail = TSchema.new "SiteUserEmail","site_user_email"
+-- with scUserEmail
+--   \define {
+--     { 1, "email",     "STR", "이메일"}
+--     { 2, "id",        "NUM", "사용자 ID"}
+--   }
+--   \setOption {
+--     persistence: "sophia"
+--     indexes: {
+--       { "pk", {"email"} }
+--     }
+--   }
+--   \build!
+
 
 
 --  article, comment 는 모두 같은 ID 넘버링을 따른다.
@@ -81,8 +129,7 @@ with scArticle
   \setOption {
     persistence: "sophia"
     indexes: {
-      { "pk", {"id"} }
-      { "pk_group", {"group","id"} }
+      { "pk", {"group","id"} }
     }
   }
   \build!
@@ -92,28 +139,31 @@ with scComment
   \define {
     { 1, "id",        "NUM", "댓글 ID"}
     { 2, "aid",       "NUM", "article ID"}
-    { 3, "content",   "STR", "본문"}
-    { 4, "update_at", "NUM", "갱신시각"}
-    { 5, "rate_up",   "NUM", "추천 횟수"}
-    { 6, "rate_down", "NUM", "비추천 횟수"}
-    { 7, "rate",      "NUM", "추천 점수 (추천-비추천)"}
-    { 8, "rate_at",   "NUM", "평가 시각"}
+    { 3, "pid",       "NUM", "부모댓글 ID"}
+    { 4, "content",   "STR", "본문"}
+    { 5, "update_at", "NUM", "갱신시각"}
+    { 6, "rate_up",   "NUM", "추천 횟수"}
+    { 7, "rate_down", "NUM", "비추천 횟수"}
+    { 8, "rate",      "NUM", "추천 점수 (추천-비추천)"}
+    { 9, "rate_at",   "NUM", "평가 시각"}
   }
   \setOption {
     persistence: "sophia"
     indexes: {
-      { "pk", {"id"} }
-      { "pk_aid", {"aid","id"} }
+      { "pk", {"aid","id"} }
     }
   }
   \build!
 
 
-
-return {
+return_object = {
   :scUser
   :scRatable
   :scRateAction
   :scArticle
   :scComment
 }
+for k,v in pairs(additional_user_index)
+  return_object[k] = v
+
+return return_object
