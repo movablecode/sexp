@@ -8,7 +8,7 @@ import load_pages from require "lib.lib1"
 ROOTDIR = "/home/smlee/Work/sexp/luapost/zevo"
 package.path = package.path..";"..ROOTDIR.."/?.lua"
 
-g_app = require "zv.main"
+g_app = (require "zv.main")!
 GET = (path,fn) -> g_app\get path,fn
 POST = (path,fn) -> g_app\post path,fn
 MATCH = (path,fn) -> g_app\match path,fn
@@ -18,6 +18,7 @@ _G["POST"] = POST
 _G["MATCH"] = MATCH
 _G["ROOTDIR"] = ROOTDIR
 
--- load_pages ROOTDIR,"zv"     --  load from './zevo/zv'
+load_pages ROOTDIR,"api"     --  load from './zevo/api'
+load_pages ROOTDIR,"page"    --  load from './zevo/page'
 
 return g_app

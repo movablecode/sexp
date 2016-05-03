@@ -1,4 +1,10 @@
---  tmodel.moon
+--
+--  Object TUple Mapper for tarantool (O.TU.M)
+--  
+--  author: Sangmin Lee
+--
+--
+
 import ObjectEntry from require "lib.object_access"
 
 --  create new column
@@ -65,6 +71,11 @@ class TPersistenceResty extends TPersistence
     @@persistences['sophia'] = self
   build: (o) =>
     print "build resty"
+
+class TPersistencePostgresql extends TPersistence
+  new: () => super 'postgresql'
+  build: (o) =>
+    print "build postgresql"
 
 
 
@@ -146,26 +157,13 @@ class TSchema
     --  use persistence
     @persistece\build self
 
-  --  make JSON object and hashing it's value
+  --  make JSON object string
   toJSON: ()=>
     @columns
 
-  --  make schema from JSON object and hashing it's value
+  --  make schema from JSON object
   fromJSON: (j)=>
     @columns
-
-  instance: (opt)->
-    opt.name = opt.name or "none"
-    opt.table = opt.table or opt.name
-    x = TSchema\getSchema opt.name
-    if x==nil
-      x = TSchema!
-      x\register opt.name,opt.table
-    with x
-      \define opt.columns
-      \setOption opt.option
-      \build!
-    return x
 
   writeChanges: (model)=>
     if @persistence
@@ -179,6 +177,19 @@ class TSchema
       x.columns[k] = v
       x.col_names[v.name] = v
       x.col_map[v.name] = v.idx
+
+  instance: (opt)->
+    opt.name = opt.name or "none"
+    opt.table = opt.table or opt.name
+    x = TSchema\getSchema opt.name
+    if x==nil
+      x = TSchema!
+      x\register opt.name,opt.table
+    with x
+      \define opt.columns
+      \setOption opt.option
+      \build!
+    return x
 
 
 
@@ -262,7 +273,7 @@ class TModel
     @modified[ikey] = value
 
   flush: ()=>
-    --  do modified to persistence
+    --  do modified to schema/persistence
     if @schema
       @schema\writeChanges self
     @modified = {}
