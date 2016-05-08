@@ -17,6 +17,12 @@ config = {
     work_dir: "/home/smlee/db/blz2"
     slab_alloc_arena: 0.1
   }
+  tst1: {
+    custom_proc_title: "tst1"
+    listen: 3311
+    work_dir: "/home/smlee/db/tst1"
+    slab_alloc_arena: 0.1
+  }
 
   --  for mac book air
   mba1: {
